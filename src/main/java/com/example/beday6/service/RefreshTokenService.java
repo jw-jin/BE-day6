@@ -17,17 +17,4 @@ public class RefreshTokenService {
                 .orElseThrow(() -> new IllegalArgumentException("unexpected refreshtoken"));
     }
 
-    public RefreshToken saveToken(Long id, String refreshToken){
-        return refreshTokenRepository.save(new RefreshToken(id,refreshToken));
-    }
-
-    public String findByUserId(Long userId) {
-        RefreshToken refreshToken =  refreshTokenRepository.findByUserId(userId)
-                .orElseThrow(() -> new UsernameNotFoundException("unexpected user id"));
-        return refreshToken.getEmail();
-    }
-
-    public void deleteToken(String email) {
-        refreshTokenRepository.deleteById(email);
-    }
 }
