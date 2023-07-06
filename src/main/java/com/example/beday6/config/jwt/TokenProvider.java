@@ -1,9 +1,7 @@
 package com.example.beday6.config.jwt;
 
 
-import com.example.beday6.config.jwt.dto.Tokeninfo;
 import com.example.beday6.domain.user.User;
-import com.example.beday6.service.RefreshTokenService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;
