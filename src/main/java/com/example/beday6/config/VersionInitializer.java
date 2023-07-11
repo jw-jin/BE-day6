@@ -33,7 +33,26 @@ public class VersionInitializer {
                 .updateType(true)
                 .build();
 
+        Version version3 = Version.builder()
+                .osInfo("android")
+                .message("test message3")
+                .packageInfo("org.package")
+                .serviceVersion("1.0.3")
+                .serviceName("service")
+                .updateType(true)
+                .build();
+
+        Version version4 = Version.builder()
+                .osInfo("android")
+                .message("test message4")
+                .packageInfo("org.package")
+                .serviceVersion("1.0.4")
+                .serviceName("service")
+                .updateType(true)
+                .build();
         versionRepository.save(version1);
         versionRepository.save(version2);
+        versionRepository.save(version3);
+        versionRepository.save(version4);
     }
 }
