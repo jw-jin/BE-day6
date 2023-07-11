@@ -34,5 +34,10 @@ public class VersionService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 id의 값이 없음"));
     }
 
+    public Version getRecentVersion(Version version) {
+        return versionRepository.findTopByOsInfoOrderByServiceVersionDesc(version.getOsInfo())
+                .orElseThrow(() -> new IllegalArgumentException("해당 os의 최신 버전 찾기 실패"));
+    }
+
 
 }
