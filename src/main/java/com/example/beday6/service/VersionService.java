@@ -16,6 +16,10 @@ import java.util.List;
 public class VersionService {
     private final VersionRepository versionRepository;
 
+    public Version saveVersion(Version version) {
+        versionRepository.save(version);
+        return version;
+    }
     public List<Version> findAll() {
         return versionRepository.findAll(Sort.by(Sort.Direction.ASC,"regTime"));
     }
