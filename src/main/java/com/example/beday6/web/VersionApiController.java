@@ -21,14 +21,8 @@ public class VersionApiController {
 
     @PostMapping("/versionadd")
     public ResponseEntity<String> versionAdd(@RequestBody VersionRequestDto requestDto){
-        versionService.saveVersion(Version.builder()
-                        .serviceVersion(requestDto.getServiceVersion())
-                        .packageInfo(requestDto.getPackageInfo())
-                        .serviceName(requestDto.getServiceName())
-                        .updateType(requestDto.isUpdateType())
-                        .osInfo(requestDto.getOsInfo())
-                        .message(requestDto.getMessage())
-                .build());
+        Version version = Version.createVersion(requestDto);
+        versionService.saveVersion(version);
 
         return ResponseEntity.ok("성공");
     }
@@ -45,12 +39,9 @@ public class VersionApiController {
 
     @PostMapping("/getrecentversion")
     public ResponseEntity<Version> getRecentVersion(@RequestBody VersionRequestDto requestDto) {
+        Version version = Version.createVersion(requestDto);
 
-        return ResponseEntity.ok(versionService.getRecentVersion(Version.builder()
-                .serviceVersion(requestDto.getServiceVersion())
-                .serviceName(requestDto.getServiceName())
-                .osInfo(requestDto.getOsInfo())
-                .build()));
+        return ResponseEntity.ok(versionService.getRecentVersion(version));
     }
 }
 

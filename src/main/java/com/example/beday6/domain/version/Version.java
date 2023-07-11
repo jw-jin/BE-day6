@@ -1,6 +1,7 @@
 package com.example.beday6.domain.version;
 
 
+import com.example.beday6.web.dto.VersionRequestDto;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -48,6 +49,21 @@ public class Version {
         this.updateType = updateType;
         this.message = message;
         this.packageInfo = packageInfo;
+    }
+
+    @Builder
+    public static Version createVersion(VersionRequestDto versionRequestDto) {
+        Version version = Version.builder()
+                .osInfo(versionRequestDto.getOsInfo())
+                .serviceVersion(versionRequestDto.getServiceVersion())
+                .serviceName(versionRequestDto.getServiceName())
+                .updateType(versionRequestDto.isUpdateType())
+                .message(versionRequestDto.getMessage())
+                .packageInfo(versionRequestDto.getPackageInfo())
+                .build();
+
+        return version;
+
     }
 
     public void update(String osInfo, String serviceName, boolean updateType, String message, String packageInfo) {
