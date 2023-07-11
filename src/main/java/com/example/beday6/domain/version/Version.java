@@ -21,6 +21,9 @@ public class Version {
     @Column(name = "os_info")
     private String osInfo;
 
+    @Column(name = "service_version")
+    private String serviceVersion;
+
     @Column(name = "service_name")
     private String serviceName;
 
@@ -36,18 +39,17 @@ public class Version {
     @CreatedDate
     @Column(name = "reg_time")
     private LocalDateTime regTime;
-    @Builder
-    public Version(Long id, String osInfo, String serviceName, boolean updateType, String message, String packageInfo) {
-        this.id = id;
+
+    public Version(String osInfo, String serviceVersion, String serviceName, boolean updateType, String message, String packageInfo) {
         this.osInfo = osInfo;
+        this.serviceVersion = serviceVersion;
         this.serviceName = serviceName;
         this.updateType = updateType;
         this.message = message;
         this.packageInfo = packageInfo;
     }
 
-    public void update(Long id, String osInfo, String serviceName, boolean updateType, String message, String packageInfo) {
-        this.id = id;
+    public void update(String osInfo, String serviceName, boolean updateType, String message, String packageInfo) {
         this.osInfo = osInfo;
         this.serviceName = serviceName;
         this.updateType = updateType;
