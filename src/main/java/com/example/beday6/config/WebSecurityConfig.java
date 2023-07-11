@@ -30,7 +30,7 @@ public class WebSecurityConfig {
         return http
                 .authorizeRequests()
                 .antMatchers("/login", "/signup", "/user").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
 
                 .and()
                 .formLogin() // 폼 로그인 방식 사용
