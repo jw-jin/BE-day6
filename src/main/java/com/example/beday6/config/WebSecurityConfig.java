@@ -44,6 +44,7 @@ public class WebSecurityConfig {
 
                 .and()
                 .csrf().disable()
+                .cors().disable()
                 .build();
     }
 
