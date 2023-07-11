@@ -40,6 +40,7 @@ public class Version {
     @Column(name = "reg_time")
     private LocalDateTime regTime;
 
+    @Builder
     public Version(String osInfo, String serviceVersion, String serviceName, boolean updateType, String message, String packageInfo) {
         this.osInfo = osInfo;
         this.serviceVersion = serviceVersion;
