@@ -1,8 +1,9 @@
 package com.example.beday6.domain.version;
 
 
-import com.example.beday6.web.dto.VersionRequestDto;
+import com.example.beday6.web.dto.AddVersionRequestDto;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -41,25 +42,30 @@ public class Version {
     @Column(name = "reg_time")
     private LocalDateTime regTime;
 
+    @ColumnDefault("False")
+    @Column(name = "is_delete")
+    private boolean isDelete;
+
     @Builder
-    public Version(String osInfo, String serviceVersion, String serviceName, boolean updateType, String message, String packageInfo) {
+    public Version(String osInfo, String serviceVersion, String serviceName, boolean updateType, String message, String packageInfo, boolean isDelete) {
         this.osInfo = osInfo;
         this.serviceVersion = serviceVersion;
         this.serviceName = serviceName;
         this.updateType = updateType;
         this.message = message;
         this.packageInfo = packageInfo;
+        this.isDelete = isDelete;
     }
 
     @Builder
-    public static Version createVersion(VersionRequestDto versionRequestDto) {
+    public static Version createVersion(AddVersionRequestDto addVersionRequestDto) {
         Version version = Version.builder()
-                .osInfo(versionRequestDto.getOsInfo())
-                .serviceVersion(versionRequestDto.getServiceVersion())
-                .serviceName(versionRequestDto.getServiceName())
-                .updateType(versionRequestDto.isUpdateType())
-                .message(versionRequestDto.getMessage())
-                .packageInfo(versionRequestDto.getPackageInfo())
+                .osInfo(addVersionRequestDto.getOsInfo())
+                .serviceVersion(addVersionRequestDto.getServiceVersion())
+                .serviceName(addVersionRequestDto.getServiceName())
+                .updateType(addVersionRequestDto.isUpdateType())
+                .message(addVersionRequestDto.getMessage())
+                .packageInfo(addVersionRequestDto.getPackageInfo())
                 .build();
 
         return version;

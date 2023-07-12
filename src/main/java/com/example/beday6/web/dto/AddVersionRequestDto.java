@@ -4,7 +4,7 @@ package com.example.beday6.web.dto;
 import lombok.Getter;
 
 @Getter
-public class VersionRequestDto {
+public class AddVersionRequestDto {
     private String osInfo;
     private String serviceVersion;
     private String serviceName;

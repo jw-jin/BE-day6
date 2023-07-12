@@ -9,9 +9,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class VersionService {
     private final VersionRepository versionRepository;
@@ -24,8 +26,8 @@ public class VersionService {
         return versionRepository.findAll(Sort.by(Sort.Direction.ASC,"regTime"));
     }
 
-    public Page<Version> getVersionList(int count) {
-        PageRequest pageRequest = PageRequest.of(0,count);
+    public Page<Version> getVersionList(Integer pageNumber, Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
         return versionRepository.findAll(pageRequest);
     }
 
@@ -38,6 +40,4 @@ public class VersionService {
         return versionRepository.findTopByOsInfoOrderByServiceVersionDesc(version.getOsInfo())
                 .orElseThrow(() -> new IllegalArgumentException("해당 os의 최신 버전 찾기 실패"));
     }
-
-
 }

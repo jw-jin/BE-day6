@@ -4,7 +4,8 @@ import com.example.beday6.domain.version.Version;
 import lombok.Getter;
 
 @Getter
-public class VersionResponseDto {
+public class AddVersionResponseDto {
+
     private String osInfo;
     private String serviceVersion;
     private String serviceName;
@@ -12,7 +13,7 @@ public class VersionResponseDto {
     private String message;
     private String packageInfo;
 
-    public VersionResponseDto (Version version) {
+    public AddVersionResponseDto(Version version) {
         osInfo = version.getOsInfo();
         serviceVersion = version.getServiceVersion();
         serviceName = version.getServiceName();
