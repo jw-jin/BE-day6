@@ -45,6 +45,16 @@ public class VersionApiController {
         Version version = Version.createVersion(requestDto);
         return ResponseEntity.ok(versionService.getRecentVersion(version));
     }
+
+    @GetMapping("/getversion/{id}")
+    public ResponseEntity<Version> getVersion(@PathVariable Long versionId) {
+        return ResponseEntity.ok(versionService.findById(versionId));
+    }
+
+//    @GetMapping("/getoslist")
+//    public ResponseEntity<List<String>> getOsList() {
+//        return ResponseEntity.ok(versionService.)
+//    }
 }
 
 // 테스트 눌렀을때 os 선택 후
