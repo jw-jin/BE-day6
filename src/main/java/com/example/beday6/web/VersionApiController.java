@@ -35,7 +35,7 @@ public class VersionApiController {
         return ResponseEntity.created(location).body(version);
     }
 
-    @GetMapping("/getconfigall")
+    @PostMapping("/getconfigall")
     public ResponseEntity<List<Version>> getConfigAll(@RequestBody VersionPageRequestDto requestDto) {
         return ResponseEntity.ok(versionService.getVersionList(requestDto.getPageNumber(), requestDto.getPageSize()).toList());
     }
