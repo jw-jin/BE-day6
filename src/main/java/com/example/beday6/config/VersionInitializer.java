@@ -15,44 +15,28 @@ public class VersionInitializer {
 
     @PostConstruct
     public void init() {
-        Version version1 = Version.builder()
-                .osInfo("IOS")
-                .message("test message")
-                .packageInfo("org.package")
-                .serviceVersion("1.0.0")
-                .serviceName("service")
-                .updateType(true)
-                .build();
+        for(int i=0;i<8;i++) {
+            Version version = Version.builder()
+                    .osInfo("IOS")
+                    .message("test message"+i)
+                    .packageInfo("org.package")
+                    .serviceVersion("1.0."+i)
+                    .serviceName("service")
+                    .updateType(true)
+                    .build();
 
-        Version version2 = Version.builder()
-                .osInfo("android")
-                .message("test message2")
-                .packageInfo("org.package")
-                .serviceVersion("1.0.1")
-                .serviceName("service")
-                .updateType(true)
-                .build();
+            Version version2 = Version.builder()
+                    .osInfo("android")
+                    .message("test message"+i)
+                    .packageInfo("org.package")
+                    .serviceVersion("1.0."+i)
+                    .serviceName("service")
+                    .updateType(false)
+                    .build();
 
-        Version version3 = Version.builder()
-                .osInfo("android")
-                .message("test message3")
-                .packageInfo("org.package")
-                .serviceVersion("1.0.3")
-                .serviceName("service")
-                .updateType(true)
-                .build();
+            versionRepository.save(version);
+            versionRepository.save(version2);
+        }
 
-        Version version4 = Version.builder()
-                .osInfo("android")
-                .message("test message4")
-                .packageInfo("org.package")
-                .serviceVersion("1.0.4")
-                .serviceName("service")
-                .updateType(true)
-                .build();
-        versionRepository.save(version1);
-        versionRepository.save(version2);
-        versionRepository.save(version3);
-        versionRepository.save(version4);
     }
 }

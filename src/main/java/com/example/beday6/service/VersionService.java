@@ -23,7 +23,7 @@ public class VersionService {
         return version;
     }
     public List<Version> findAll() {
-        return versionRepository.findAll(Sort.by(Sort.Direction.ASC,"regTime"));
+        return versionRepository.findAll(Sort.by(Sort.Direction.DESC,"regTime"));
     }
 
     public Page<Version> getVersionList(Integer pageNumber, Integer pageSize) {
@@ -39,5 +39,9 @@ public class VersionService {
     public Version getRecentVersion(Version version) {
         return versionRepository.findTopByOsInfoOrderByServiceVersionDesc(version.getOsInfo())
                 .orElseThrow(() -> new IllegalArgumentException("해당 os의 최신 버전 찾기 실패"));
+    }
+
+    public Long getVersionCount() {
+        return versionRepository.count();
     }
 }

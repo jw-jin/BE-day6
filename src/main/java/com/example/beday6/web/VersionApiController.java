@@ -28,7 +28,6 @@ public class VersionApiController {
         // 컨텍스트 상대 경로 URI를 쉽게 만들게 해주는 UriComponentsBuilder를 컨트롤러 메서드의 인자로 지정
         Version version = Version.createVersion(requestDto);
         versionService.saveVersion(version);
-        System.out.println("requestDto = " + requestDto.getServiceName());
 
         URI location = builder.path("/vercontrol/versionadd")
                 .buildAndExpand(version.getId()).toUri();
@@ -37,15 +36,10 @@ public class VersionApiController {
     }
 
     @GetMapping("/getconfigall")
-    public ResponseEntity<List<Version>> getConfigAll() {
-        return ResponseEntity.ok(versionService.findAll());
+    public ResponseEntity<List<Version>> getConfigAll(@RequestBody VersionPageRequestDto requestDto) {
+        return ResponseEntity.ok(versionService.getVersionList(requestDto.getPageNumber(), requestDto.getPageSize()).toList());
     }
 
-    @GetMapping("/getconfigpage")
-    // pageCount, count 인수로 받는거 추가하기
-    public ResponseEntity<Page<Version>> getConfigPage(@RequestBody VersionPageRequestDto requestDto) {
-        return ResponseEntity.ok(versionService.getVersionList(requestDto.getPageNumber(), requestDto.getPageSize()));
-    }
     @PostMapping("/getrecentversion")
     public ResponseEntity<Version> getRecentVersion(@RequestBody AddVersionRequestDto requestDto) {
         Version version = Version.createVersion(requestDto);

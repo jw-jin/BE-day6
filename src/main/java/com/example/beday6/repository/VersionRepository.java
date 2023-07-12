@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface VersionRepository extends JpaRepository<Version, Long> {
     Optional<Version> findTopByOsInfoOrderByServiceVersionDesc(String osInfo);
+    long count();
 
 }
