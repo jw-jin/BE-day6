@@ -76,7 +76,7 @@ public class VersionService {
         String[] serviceVersionArr = serviceVersion.split(".");
         String[] compareVersionArr = compareVersion.split(".");
         int maxLen = Math.max(serviceVersionArr.length, compareVersionArr.length);
-        for(int i = 0;i<maxLen;i++) {
+        for (int i = 0; i < maxLen; i++) {
             int x = Integer.parseInt(serviceVersionArr[i]);
             int y = Integer.parseInt(compareVersionArr[i]);
             if (x < y) {
@@ -86,9 +86,9 @@ public class VersionService {
             }
         }
         return isNeedsUpdate;
-
+    }
     // update
-    public Version updateById (Long id, UpdateVersionRequestDto updateRequest) {
+    public Version updateById(Long id, UpdateVersionRequestDto updateRequest) {
         // 먼저, id로 조회
         Version version = versionRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 id의 값이 없음"));
