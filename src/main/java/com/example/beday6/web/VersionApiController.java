@@ -5,7 +5,9 @@ import com.example.beday6.service.VersionService;
 import com.example.beday6.web.dto.AddVersionRequestDto;
 import com.example.beday6.web.dto.UpdateCheckRequestDto;
 import com.example.beday6.web.dto.UpdateCheckResponseDto;
+import com.example.beday6.web.dto.UpdateVersionRequestDto;
 import com.example.beday6.web.dto.VersionPageRequestDto;
+import com.example.beday6.web.dto.VersionResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -42,10 +44,12 @@ public class VersionApiController {
                                                       @RequestParam(value = "pageSize") Integer pageSize) {
         return ResponseEntity.ok(versionService.getVersionList(pageNumber, pageSize).toList());
     }
+
+
     @GetMapping("/getrecentversion")
-    public ResponseEntity<Version> getRecentVersion(@RequestParam AddVersionRequestDto requestDto) {
+    public ResponseEntity<VersionResponseDto> getRecentVersion(@RequestParam AddVersionRequestDto requestDto) {
         Version version = Version.createVersion(requestDto);
-        return ResponseEntity.ok(versionService.getRecentVersion(version));
+        return ResponseEntity.ok(new VersionResponseDto(versionService.getRecentVersion(version)));
     }
 
     @GetMapping("/updatecheck")
@@ -56,8 +60,22 @@ public class VersionApiController {
     }
 
     @GetMapping("/getversion/{id}")
-    public ResponseEntity<Version> getVersion(@PathVariable Long versionId) {
-        return ResponseEntity.ok(versionService.findById(versionId));
+    public ResponseEntity<VersionResponseDto> getVersion(@PathVariable Long versionId) {
+        return ResponseEntity.ok(new VersionResponseDto(versionService.findById(versionId)));
+    }
+
+    // update
+    @PutMapping("/versions/{id}")
+    public ResponseEntity<Version> updateVersion(@PathVariable Long id, @RequestBody UpdateVersionRequestDto requestDto) {
+        Version updatedVersion = versionService.updateById(id, requestDto);
+        return ResponseEntity.ok().body(updatedVersion);
+    }
+
+    // delete
+    @DeleteMapping("/versions/{id}")
+    public ResponseEntity<Void> deleteVersion(@PathVariable Long id) {
+        versionService.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 
 //    @GetMapping("/getoslist")

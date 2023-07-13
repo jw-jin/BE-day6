@@ -82,4 +82,8 @@ public class Version {
         this.message = message;
         this.packageInfo = packageInfo;
     }
+
+    public void delete() {
+        this.isDelete = true;
+    }
 }
