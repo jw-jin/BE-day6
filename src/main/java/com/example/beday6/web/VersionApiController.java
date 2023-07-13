@@ -88,6 +88,5 @@ public class VersionApiController {
 //        return ResponseEntity.ok(versionService.)
 //    }
 }
-
 // 테스트 눌렀을때 os 선택 후
 // os에 해당하는 최신 버전을 뽑아주는게 목표다?
