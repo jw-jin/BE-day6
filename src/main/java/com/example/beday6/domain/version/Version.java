@@ -72,9 +72,10 @@ public class Version {
 
     }
 
-    public void update(String osInfo, String serviceName, boolean updateType, String message, String packageInfo) {
+    public void update(String osInfo, String serviceName, String serviceVersion, boolean updateType, String message, String packageInfo) {
         this.osInfo = osInfo;
         this.serviceName = serviceName;
+        this.serviceVersion = serviceVersion;
         this.updateType = updateType;
         this.message = message;
         this.packageInfo = packageInfo;

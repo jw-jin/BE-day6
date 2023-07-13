@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface VersionRepository extends JpaRepository<Version, Long> {
-    Optional<Version> findTopByOsInfoOrderByServiceVersionDesc(String osInfo);
+    Optional<Version> findTopByIsDeleteFalseAndOsInfoOrderByServiceVersionDesc(String osInfo);
     Page<Version> findByIsDeleteFalse(Pageable pageable);
 
 }

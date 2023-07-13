@@ -39,7 +39,7 @@ public class VersionService {
 
     // 최신 버전 가져오기
     public Version getRecentVersion(Version version) {
-        return versionRepository.findTopByOsInfoOrderByServiceVersionDesc(version.getOsInfo())
+        return versionRepository.findTopByIsDeleteFalseAndOsInfoOrderByServiceVersionDesc(version.getOsInfo())
                 .orElseThrow(() -> new IllegalArgumentException("해당 os의 최신 버전 찾기 실패"));
     }
 
@@ -53,7 +53,7 @@ public class VersionService {
         Version version = versionRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 id의 값이 없음"));
         // 서비스단에서 조회된 데이터 업데이트 코드
-        version.update(updateRequest.getOsInfo(), updateRequest.getServiceName(), updateRequest.isUpdateType(), updateRequest.getMessage(), updateRequest.getPackageInfo());
+        version.update(updateRequest.getOsInfo(), updateRequest.getServiceName(), updateRequest.getServiceVersion(), updateRequest.isUpdateType(), updateRequest.getMessage(), updateRequest.getPackageInfo());
         return version;
     }
 
