@@ -59,8 +59,7 @@ public class VersionService {
                 }
             }
         }
-        System.out.println("isForcedUpdate = " + isForcedUpdate);
-        System.out.println("versionList = " + versionList);
+
         Version recentVersion = Version.builder().build();
         // String serviceVersion, boolean isRecentVersion, boolean isForcedUpdate
         return new UpdateCheckResponseDto(serviceVersion, compareVersion(serviceVersion, recentVersion.getServiceVersion()), isForcedUpdate);
@@ -93,9 +92,11 @@ public class VersionService {
         Version version = versionRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 id의 값이 없음"));
         // 서비스단에서 조회된 데이터 업데이트 코드
-        version.update(updateRequest.getOsInfo(), updateRequest.getServiceVersion(), updateRequest.getServiceName(), updateRequest.isUpdateType(), updateRequest.getMessage(), updateRequest.getPackageInfo());
+        // String osInfo, String serviceName, String serviceVersion, boolean updateType, String message, String packageInfo
+        version.update(updateRequest.getOsInfo(), updateRequest.getServiceName(), updateRequest.getServiceVersion(), updateRequest.isUpdateType(), updateRequest.getMessage(), updateRequest.getPackageInfo());
         return version;
     }
+
 
     // delete - 직접 DB에서 삭제하지 않고 DB에 DELETE여부를 체크만 해준다
     public void deleteById (Long id) {
