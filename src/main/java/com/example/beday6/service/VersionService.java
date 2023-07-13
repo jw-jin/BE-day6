@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Transactional
@@ -41,8 +42,6 @@ public class VersionService {
     // 최신 버전 가져오기
     public Version getRecentVersion(Version version) {
 
-        System.out.println("version.getOsInfo() = " + version.getOsInfo());
-        System.out.println("version.getServiceVersion() = " + version.getServiceName());
         return versionRepository.findTopByOsInfoAndServiceNameOrderByServiceVersionDesc(version.getOsInfo(), version.getServiceName())
                 .orElseThrow(() -> new IllegalArgumentException("해당 os의 최신 버전 찾기 실패"));
         // 체크
@@ -50,7 +49,8 @@ public class VersionService {
 
     public UpdateCheckResponseDto updateCheck(String osInfo, String serviceName, String serviceVersion) {
         boolean isForcedUpdate = false;
-        List<Version> versionList = versionRepository.findByOsInfoAndServiceNameAndIsDeleteFalse(osInfo, serviceName);
+        List<Version> versionList = versionRepository.findByIsDeleteFalseAndOsInfoAndServiceName(osInfo, serviceName)
+                .orElseThrow(() -> new IllegalArgumentException("동일한 os와 서비스네임을 가진 서비스가 없음"));
         for (Version version : versionList) {
             if(compareVersion(serviceVersion, version.getServiceVersion())) {
                 if(version.isUpdateType() == true) {
@@ -59,10 +59,9 @@ public class VersionService {
                 }
             }
         }
-        Version recentVersion = getRecentVersion(Version.builder()
-                .serviceName(serviceName)
-                .osInfo(osInfo)
-                        .build());
+        System.out.println("isForcedUpdate = " + isForcedUpdate);
+        System.out.println("versionList = " + versionList);
+        Version recentVersion = Version.builder().build();
         // String serviceVersion, boolean isRecentVersion, boolean isForcedUpdate
         return new UpdateCheckResponseDto(serviceVersion, compareVersion(serviceVersion, recentVersion.getServiceVersion()), isForcedUpdate);
     }
@@ -94,7 +93,7 @@ public class VersionService {
         Version version = versionRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 id의 값이 없음"));
         // 서비스단에서 조회된 데이터 업데이트 코드
-        version.update(updateRequest.getOsInfo(), updateRequest.getServiceName(), updateRequest.getServiceVersion(), updateRequest.isUpdateType(), updateRequest.getMessage(), updateRequest.getPackageInfo());
+        version.update(updateRequest.getOsInfo(), updateRequest.getServiceName(), updateRequest.isUpdateType(), updateRequest.getMessage(), updateRequest.getPackageInfo());
         return version;
     }
 

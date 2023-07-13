@@ -1,7 +1,10 @@
 package com.example.beday6.web.dto;
 
 import com.example.beday6.domain.version.Version;
+import lombok.Data;
 
+
+@Data
 public class VersionResponseDto {
     private String osInfo;
     private String serviceVersion;

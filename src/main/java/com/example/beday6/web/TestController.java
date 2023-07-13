@@ -20,10 +20,10 @@ import java.util.List;
 public class TestController {
 
     private final VersionService versionService;
-    @PostMapping("/getrecentversion")
-    public ResponseEntity<Version> getRecentVersion(@RequestBody AddVersionRequestDto requestDto) {
-        Version version = Version.createVersion(requestDto);
-        System.out.println("version = " + version);
-        return ResponseEntity.ok(versionService.getRecentVersion(version));
-    }
+//    @PostMapping("/getrecentversion")
+//    public ResponseEntity<Version> getRecentVersion(@RequestBody AddVersionRequestDto requestDto) {
+//        Version version = Version.createVersion(requestDto);
+//        System.out.println("version = " + version);
+//        return ResponseEntity.ok(versionService.getRecentVersion(version));
+//    }
 }

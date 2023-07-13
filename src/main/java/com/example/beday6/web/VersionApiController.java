@@ -46,11 +46,16 @@ public class VersionApiController {
     }
 
 
-    @GetMapping("/getrecentversion")
-    public ResponseEntity<VersionResponseDto> getRecentVersion(@RequestParam AddVersionRequestDto requestDto) {
+    @PostMapping("/getrecentversion")
+    public ResponseEntity<VersionResponseDto> getRecentVersion(@RequestBody AddVersionRequestDto requestDto) {
         Version version = Version.createVersion(requestDto);
         return ResponseEntity.ok(new VersionResponseDto(versionService.getRecentVersion(version)));
     }
+//    @GetMapping("/getrecentversion")
+//    public ResponseEntity<VersionResponseDto> getRecentVersion(@RequestParam(value = "osInfo") String serviceName,
+//                                                               @RequestParam(value = "serviceVersion") String serviceVersion) {
+//        return ResponseEntity.ok(new VersionResponseDto(versionService.getRecentVersion(serviceName, serviceVersion)));
+//    }
 
     @GetMapping("/updatecheck")
     public ResponseEntity<UpdateCheckResponseDto> updateCheck(@RequestParam(value = "osInfo") String osInfo,
