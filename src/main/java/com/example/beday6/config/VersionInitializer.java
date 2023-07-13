@@ -23,6 +23,7 @@ public class VersionInitializer {
                     .serviceVersion("1.0."+i)
                     .serviceName("service")
                     .updateType(true)
+                    .isDelete(false)
                     .build();
 
             Version version2 = Version.builder()
@@ -32,6 +33,7 @@ public class VersionInitializer {
                     .serviceVersion("1.0."+i)
                     .serviceName("service")
                     .updateType(false)
+                    .isDelete(true)
                     .build();
 
             versionRepository.save(version);
