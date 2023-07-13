@@ -93,7 +93,7 @@ public class VersionService {
         Version version = versionRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 id의 값이 없음"));
         // 서비스단에서 조회된 데이터 업데이트 코드
-        version.update(updateRequest.getOsInfo(), updateRequest.getServiceName(), updateRequest.isUpdateType(), updateRequest.getMessage(), updateRequest.getPackageInfo());
+        version.update(updateRequest.getOsInfo(), updateRequest.getServiceVersion(), updateRequest.getServiceName(), updateRequest.isUpdateType(), updateRequest.getMessage(), updateRequest.getPackageInfo());
         return version;
     }
 
