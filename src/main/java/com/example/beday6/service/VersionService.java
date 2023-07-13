@@ -42,6 +42,7 @@ public class VersionService {
         System.out.println("version.getServiceVersion() = " + version.getServiceName());
         return versionRepository.findTopByOsInfoAndServiceNameOrderByServiceVersionDesc(version.getOsInfo(), version.getServiceName())
                 .orElseThrow(() -> new IllegalArgumentException("해당 os의 최신 버전 찾기 실패"));
+        // 체크
     }
 
     public UpdateCheckResponseDto updateCheck(String osInfo, String serviceName, String serviceVersion) {
