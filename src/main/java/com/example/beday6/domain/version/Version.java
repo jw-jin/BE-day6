@@ -2,6 +2,8 @@ package com.example.beday6.domain.version;
 
 
 import com.example.beday6.web.dto.AddVersionRequestDto;
+import com.example.beday6.web.dto.UpdateCheckRequestDto;
+import com.example.beday6.web.dto.UpdateCheckResponseDto;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
@@ -71,6 +73,7 @@ public class Version {
         return version;
 
     }
+
 
     public void update(String osInfo, String serviceName, boolean updateType, String message, String packageInfo) {
         this.osInfo = osInfo;

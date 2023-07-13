@@ -3,6 +3,8 @@ package com.example.beday6.web;
 import com.example.beday6.domain.version.Version;
 import com.example.beday6.service.VersionService;
 import com.example.beday6.web.dto.AddVersionRequestDto;
+import com.example.beday6.web.dto.UpdateCheckRequestDto;
+import com.example.beday6.web.dto.UpdateCheckResponseDto;
 import com.example.beday6.web.dto.VersionPageRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -35,15 +37,22 @@ public class VersionApiController {
         return ResponseEntity.created(location).body(version);
     }
 
-    @PostMapping("/getconfigall")
-    public ResponseEntity<List<Version>> getConfigAll(@RequestBody VersionPageRequestDto requestDto) {
-        return ResponseEntity.ok(versionService.getVersionList(requestDto.getPageNumber(), requestDto.getPageSize()).toList());
+    @GetMapping("/getconfigall")
+    public ResponseEntity<List<Version>> getConfigAll(@RequestParam(value = "pageNumber") Integer pageNumber,
+                                                      @RequestParam(value = "pageSize") Integer pageSize) {
+        return ResponseEntity.ok(versionService.getVersionList(pageNumber, pageSize).toList());
     }
-
-    @PostMapping("/getrecentversion")
-    public ResponseEntity<Version> getRecentVersion(@RequestBody AddVersionRequestDto requestDto) {
+    @GetMapping("/getrecentversion")
+    public ResponseEntity<Version> getRecentVersion(@RequestParam AddVersionRequestDto requestDto) {
         Version version = Version.createVersion(requestDto);
         return ResponseEntity.ok(versionService.getRecentVersion(version));
+    }
+
+    @GetMapping("/updatecheck")
+    public ResponseEntity<UpdateCheckResponseDto> updateCheck(@RequestParam(value = "osInfo") String osInfo,
+                                                              @RequestParam(value = "serviceVersion") String serviceVersion,
+                                                              @RequestParam(value = "serviceName") String serviceName) {
+        return ResponseEntity.ok(versionService.updateCheck(osInfo, serviceVersion, serviceName));
     }
 
     @GetMapping("/getversion/{id}")
