@@ -40,13 +40,10 @@ public class VersionService {
 
     // 최신 버전 가져오기
     public Version getRecentVersion(Version version) {
-<<<<<<< HEAD
-        return versionRepository.findTopByIsDeleteFalseAndOsInfoOrderByServiceVersionDesc(version.getOsInfo())
-=======
+
         System.out.println("version.getOsInfo() = " + version.getOsInfo());
         System.out.println("version.getServiceVersion() = " + version.getServiceName());
         return versionRepository.findTopByOsInfoAndServiceNameOrderByServiceVersionDesc(version.getOsInfo(), version.getServiceName())
->>>>>>> master
                 .orElseThrow(() -> new IllegalArgumentException("해당 os의 최신 버전 찾기 실패"));
         // 체크
     }
